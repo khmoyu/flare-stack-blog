@@ -45,15 +45,17 @@ describe("TagService", () => {
 
       // Create a published post with tag1
       const post1 = await PostService.createEmptyPost(ctx);
-      await PostService.updatePost(ctx, {
-        id: post1.id,
-        data: {
-          title: "Post 1",
-          slug: "post-1",
-          status: "published",
-          publishedAt: new Date(Date.now() - 10000),
-        },
-      });
+      unwrap(
+        await PostService.updatePost(ctx, {
+          id: post1.id,
+          data: {
+            title: "Post 1",
+            slug: "post-1",
+            status: "published",
+            publishedAt: new Date(Date.now() - 10000),
+          },
+        }),
+      );
       await TagService.setPostTags(ctx, {
         postId: post1.id,
         tagIds: [tag1.id],
@@ -81,15 +83,17 @@ describe("TagService", () => {
       const tag2 = unwrap(await TagService.createTag(ctx, { name: "tag2" }));
 
       const post1 = await PostService.createEmptyPost(ctx);
-      await PostService.updatePost(ctx, {
-        id: post1.id,
-        data: {
-          title: "Post 1",
-          slug: "post-1",
-          status: "published",
-          publishedAt: new Date(Date.now() - 10000),
-        },
-      });
+      unwrap(
+        await PostService.updatePost(ctx, {
+          id: post1.id,
+          data: {
+            title: "Post 1",
+            slug: "post-1",
+            status: "published",
+            publishedAt: new Date(Date.now() - 10000),
+          },
+        }),
+      );
       await TagService.setPostTags(ctx, {
         postId: post1.id,
         tagIds: [tag1.id],
@@ -134,15 +138,17 @@ describe("TagService", () => {
       );
 
       const post = await PostService.createEmptyPost(ctx);
-      await PostService.updatePost(ctx, {
-        id: post.id,
-        data: {
-          title: "Post",
-          slug: "post",
-          status: "published",
-          publishedAt: new Date(Date.now() - 10000),
-        },
-      });
+      unwrap(
+        await PostService.updatePost(ctx, {
+          id: post.id,
+          data: {
+            title: "Post",
+            slug: "post",
+            status: "published",
+            publishedAt: new Date(Date.now() - 10000),
+          },
+        }),
+      );
       await TagService.setPostTags(ctx, { postId: post.id, tagIds: [tag.id] });
 
       // First call populates cache

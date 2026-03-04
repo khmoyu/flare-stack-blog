@@ -47,14 +47,16 @@ describe("CommentService", () => {
 
     // Create a published post for comments
     const { id } = await PostService.createEmptyPost(adminContext);
-    await PostService.updatePost(adminContext, {
-      id,
-      data: {
-        title: "Test Post",
-        status: "published",
-        slug: `test-post-${Date.now()}`,
-      },
-    });
+    unwrap(
+      await PostService.updatePost(adminContext, {
+        id,
+        data: {
+          title: "Test Post",
+          status: "published",
+          slug: `test-post-${Date.now()}`,
+        },
+      }),
+    );
     postId = id;
   });
 
@@ -376,14 +378,16 @@ describe("CommentService", () => {
       // Create another post
       const { id: otherPostId } =
         await PostService.createEmptyPost(adminContext);
-      await PostService.updatePost(adminContext, {
-        id: otherPostId,
-        data: {
-          title: "Other Post",
-          status: "published",
-          slug: `other-post-${Date.now()}`,
-        },
-      });
+      unwrap(
+        await PostService.updatePost(adminContext, {
+          id: otherPostId,
+          data: {
+            title: "Other Post",
+            status: "published",
+            slug: `other-post-${Date.now()}`,
+          },
+        }),
+      );
 
       const otherPostComment = unwrap(
         await CommentService.createComment(userContext, {
